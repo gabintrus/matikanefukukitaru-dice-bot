@@ -190,7 +190,7 @@ NdS+NdS          Compound expressions
 - Slash command support (`/roll`)
 - Web dashboard for statistics
 
-### 💰 Donations
+## 💰 Donations
 
 BTC: bc1qchu265a5m5sxhhnxmcjdk6xny96p2y43e37n6h
 
