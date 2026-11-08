@@ -193,7 +193,9 @@ NdS+NdS          Compound expressions
 ### 💰 Donations
 
 BTC: bc1qchu265a5m5sxhhnxmcjdk6xny96p2y43e37n6h
+
 ETH: 0xF664dCe77af3fbeF879531dD6d29479F7370e7e6
+
 POL: 0xF664dCe77af3fbeF879531dD6d29479F7370e7e6
 
 ## 📄 License
