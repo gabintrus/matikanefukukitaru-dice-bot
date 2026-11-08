@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "discord-dice-bot"
+name = "matikanefukukitaru-dice-bot"
 version = "1.0.0"
-description = "A feature-rich Discord bot for RPG dice rolling with advanced notation support"
+description = "a dice bot for RPG fans on discord servers"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
@@ -50,10 +50,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/discord-dice-bot"
-Repository = "https://github.com/yourusername/discord-dice-bot"
-Issues = "https://github.com/yourusername/discord-dice-bot/issues"
-Changelog = "https://github.com/yourusername/discord-dice-bot/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/gabintrus/matikanefukukitaru-dice-bot/"
+Repository = "https://github.com/gabintrus/matikanefukukitaru-dice-bot/"
+Issues = "https://github.com/gabintrus/matikanefukukitaru-dice-bot/issues"
+Changelog = "https://github.com/gabintrus/matikanefukukitaru-dice-bot/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
