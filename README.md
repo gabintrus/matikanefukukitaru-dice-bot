@@ -28,8 +28,8 @@ A feature-rich Discord bot for RPG dice rolling with support for advanced notati
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/discord-dice-bot.git
-cd discord-dice-bot
+git clone https://github.com/gabintrus/matikanefukukitaru-dice-bot.git
+cd matikanefukukitaru-dice-bot
 
 # Create virtual environment
 python -m venv .venv
