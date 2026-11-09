@@ -90,7 +90,7 @@ class DiceBot(commands.Bot):
         """Called when bot is ready."""
         activity = discord.Activity(
             type=discord.ActivityType.watching,
-            name=f"{config.prefix}help | Dice rolling"
+            name=f"{config.prefix}help | playing some D&D"
         )
         await self.change_presence(activity=activity)
         print(f"✅ Bot ready! Serving {len(self.guilds)} guild(s)")
