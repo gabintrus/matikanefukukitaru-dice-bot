@@ -735,8 +735,17 @@ class DiceCog(commands.Cog):
             # For explicit commands, send normally
             await message.channel.send(embed=embed)
 
+    @commands.command(name="bakushin")
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def bakushin_command(self, ctx: commands.Context):
+        """Bakushin! Sends bakushin 6 times then a GIF."""
+        for _ in range(6):
+            await ctx.send("bakushin")
+        await ctx.send("https://tenor.com/view/bakushin-sakura-bakushin-o-umamusume-chibi-bakushin-gif-11560985667059478749")
+
     @roll_command.error
     @rollstats_command.error
+    @bakushin_command.error
     async def roll_error(self, ctx: commands.Context, error: commands.CommandError):
         """Handle command errors."""
         if isinstance(error, commands.CommandOnCooldown):
