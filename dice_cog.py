@@ -743,9 +743,17 @@ class DiceCog(commands.Cog):
             await ctx.send("bakushin")
         await ctx.send("https://tenor.com/view/bakushin-sakura-bakushin-o-umamusume-chibi-bakushin-gif-11560985667059478749")
 
+    @commands.command(name="pupue")
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def pupue_command(self, ctx: commands.Context):
+        """Pupue! Sends pupue once then a GIF."""
+        await ctx.send("pupue")
+        await ctx.send("https://klipy.com/gifs/konata-lucky-star-pupue")
+
     @roll_command.error
     @rollstats_command.error
     @bakushin_command.error
+    @pupue_command.error
     async def roll_error(self, ctx: commands.Context, error: commands.CommandError):
         """Handle command errors."""
         if isinstance(error, commands.CommandOnCooldown):
