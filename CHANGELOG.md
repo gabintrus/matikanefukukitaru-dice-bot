@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-11-19
+
+### Added
+- **Slash command support** — Native Discord slash commands for all features:
+  - `/roll <expression>` — Roll dice with full NdS notation support
+  - `/rollstats <expression>` — Show probability statistics
+  - `/bakushin` — Bakushin! Sends bakushin 6 times then a GIF
+  - `/pupue` — Pupue! Sends pupue once then a GIF
+- Automatic global slash command sync on bot startup
+
 ## [1.1.0] - 2026-11-19
 
 ### Added

@@ -777,6 +777,59 @@ class DiceCog(commands.Cog):
             )
             await ctx.send(embed=embed)
 
+    # ==================== SLASH COMMANDS ====================
+
+    @app_commands.command(name="roll", description="Roll dice using NdS notation")
+    @app_commands.describe(expression="Dice expression (e.g., 1d6, 2d20+5, 4d6kh3, 2d6+1d4)")
+    async def roll_slash(self, interaction: discord.Interaction, expression: str):
+        """Slash command version of roll."""
+        await self._process_roll_slash(interaction, expression)
+
+    @app_commands.command(name="rollstats", description="Show probability statistics for a dice expression")
+    @app_commands.describe(expression="Dice expression (e.g., 1d6, 2d20kh1, 4d6kh3)")
+    async def rollstats_slash(self, interaction: discord.Interaction, expression: str):
+        """Slash command version of rollstats."""
+        try:
+            expressions = DiceParser.parse(expression)
+        except ValueError as e:
+            embed = DiceEmbedBuilder.build_error_embed(str(e), interaction.user)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            return
+
+        embed = DiceEmbedBuilder.build_stats_embed(expression, expressions, interaction.user)
+        await interaction.response.send_message(embed=embed)
+
+    @app_commands.command(name="bakushin", description="Bakushin!! :3")
+    async def bakushin_slash(self, interaction: discord.Interaction):
+        """Slash command version of bakushin."""
+        await interaction.response.defer()
+        for _ in range(6):
+            await interaction.followup.send("bakushin")
+        await interaction.followup.send("https://tenor.com/view/bakushin-sakura-bakushin-o-umamusume-chibi-bakushin-gif-11560985667059478749")
+
+    @app_commands.command(name="pupue", description="pupue!! :D")
+    async def pupue_slash(self, interaction: discord.Interaction):
+        """Slash command version of pupue."""
+        await interaction.response.send_message("pupue")
+        await interaction.followup.send("https://klipy.com/gifs/konata-lucky-star-pupue")
+
+    async def _process_roll_slash(self, interaction: discord.Interaction, expression: str):
+        """Process a dice roll for slash command and send the result."""
+        try:
+            expressions = DiceParser.parse(expression)
+        except ValueError as e:
+            embed = DiceEmbedBuilder.build_error_embed(str(e), interaction.user)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            return
+
+        # Roll all expressions
+        for expr in expressions:
+            DiceRoller.roll_expression(expr)
+
+        # Build and send embed
+        embed = DiceEmbedBuilder.build_roll_embed(expression, expressions, interaction.user, simple=False)
+        await interaction.response.send_message(embed=embed)
+
 
 async def setup(bot: commands.Bot):
     """Setup function to add the cog to the bot."""

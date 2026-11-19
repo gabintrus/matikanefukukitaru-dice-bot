@@ -1,6 +1,7 @@
 """Main entry point for the Discord dice bot."""
 import discord
 from discord.ext import commands
+from discord import app_commands
 import asyncio
 import sys
 
@@ -83,6 +84,12 @@ class DiceBot(commands.Bot):
     async def setup_hook(self):
         """Load cogs and sync commands."""
         await setup_dice(self)
+        # Sync slash commands globally
+        try:
+            synced = await self.tree.sync()
+            print(f"Synced {len(synced)} slash command(s)")
+        except Exception as e:
+            print(f"Failed to sync slash commands: {e}")
         print(f"Logged in as {self.user} (ID: {self.user.id})")
         print("------")
 

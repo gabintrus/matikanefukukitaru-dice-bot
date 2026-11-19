@@ -61,12 +61,23 @@ python bot.py
 
 ## 📖 Usage
 
-### Slash Commands (Prefix: `!` by default)
+### Slash Commands (Discord Native)
+
+| Command | Description |
+|---------|-------------|
+| `/roll <expression>` | Roll dice with full notation support |
+| `/rollstats <expression>` | Show probability statistics |
+| `/bakushin` | Bakushin! Sends bakushin 6 times then a GIF |
+| `/pupue` | Pupue! Sends pupue once then a GIF |
+
+### Prefix Commands (Prefix: `!` by default)
 
 | Command | Aliases | Description |
 |---------|---------|-------------|
 | `!roll <expression>` | `!r` | Roll dice with full notation support |
 | `!rollstats <expression>` | `!rstats`, `!stats` | Show probability statistics |
+| `!bakushin` | — | Bakushin! Sends bakushin 6 times then a GIF |
+| `!pupue` | — | Pupue! Sends pupue once then a GIF |
 | `!help` | `!h`, `!commands` | Show help message |
 
 ### Auto-Roll in Chat
@@ -83,6 +94,23 @@ Bot:  🎲 Dice Roll → 4d6kh3 = **14** (kept: 6, 5, 3 | dropped: 2)
 
 ### Examples
 
+**Slash Commands:**
+```
+/roll 1d6
+/roll 2d20+5
+/roll 4d6kh3
+/roll 2d20kh1   # Advantage
+/roll 2d20kl1   # Disadvantage
+/roll 1d6!      # Explode on 6
+/roll 2d6+1d4   # Compound roll
+/rollstats 1d20
+/rollstats 2d20kh1
+/rollstats 4d6kh3
+/bakushin
+/pupue
+```
+
+**Prefix Commands:**
 ```bash
 # Basic rolls
 !roll 1d6
@@ -112,6 +140,10 @@ Bot:  🎲 Dice Roll → 4d6kh3 = **14** (kept: 6, 5, 3 | dropped: 2)
 !rollstats 1d20
 !rollstats 2d20kh1
 !rollstats 4d6kh3
+
+# Fun commands
+!bakushin
+!pupue
 ```
 
 ## 📊 Statistics Output
@@ -187,7 +219,6 @@ NdS+NdS          Compound expressions
 - Additional dice systems (FATE, Genesys, Cortex Prime)
 - Roll history / logging
 - Custom embed themes
-- Slash command support (`/roll`)
 - Web dashboard for statistics
 
 ## 💰 Donations
