@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2026-11-20
+## [1.1.0] - 2026-11-19
+
+### Added
+- **Fun commands:**
+  - `!bakushin` — Sends "bakushin" 6 times then a GIF (10s cooldown)
+  - `!pupue` — Sends "pupue" once then a GIF (10s cooldown)
+
+## [1.0.0] - 2026-11-18
 
 ### Added
 - Initial release of Discord Dice Bot (A.K.A Matikanefukukitaru)
@@ -37,4 +44,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom help command with categorized embeds
 - Global error handler with user-friendly messages
 
+[1.1.0]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.1.0
 [1.0.0]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.0.0
