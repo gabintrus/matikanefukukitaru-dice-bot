@@ -13,6 +13,8 @@ Supports NdS notation with advanced features:
 import re
 import random
 import math
+import aiohttp
+import html
 from dataclasses import dataclass, field
 from typing import Optional, List, Tuple, Union
 from collections import Counter
@@ -749,10 +751,166 @@ class DiceCog(commands.Cog):
         """Pupue! Sends a GIF."""
         await ctx.send("https://klipy.com/gifs/konata-lucky-star-pupue")
 
+    @commands.command(name="wiki", aliases=["wikipedia", "randomwiki"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def wiki_command(self, ctx: commands.Context):
+        """Fetch a random paragraph from a random Wikipedia page."""
+        await self._process_wiki(ctx)
+
+    @app_commands.command(name="wiki", description="Fetch a random paragraph from a random Wikipedia page")
+    async def wiki_slash(self, interaction: discord.Interaction):
+        """Slash command version of wiki."""
+        await self._process_wiki_slash(interaction)
+
+    async def _fetch_random_wiki(self) -> Optional[dict]:
+        """Fetch a random Wikipedia article and extract a random paragraph."""
+        try:
+            # Use Wikipedia REST API to get a random page summary
+            # Wikipedia requires a User-Agent header
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (compatible; DiceBot/1.0; +https://github.com/gabintrus/matikanefukukitaru-dice-bot)'
+            }
+            # Use Portuguese Wikipedia
+            api_url = "https://pt.wikipedia.org/w/api.php"
+            async with aiohttp.ClientSession(headers=headers) as session:
+                # First, get a random page title
+                async with session.get(
+                    api_url,
+                    params={
+                        "action": "query",
+                        "list": "random",
+                        "rnnamespace": 0,
+                        "rnlimit": 1,
+                        "format": "json"
+                    }
+                ) as resp:
+                    if resp.status != 200:
+                        return None
+                    data = await resp.json()
+                    random_pages = data.get("query", {}).get("random", [])
+                    if not random_pages:
+                        return None
+                    page_title = random_pages[0]["title"]
+                    page_id = random_pages[0]["id"]
+
+                # Get the page content
+                async with session.get(
+                    api_url,
+                    params={
+                        "action": "parse",
+                        "pageid": page_id,
+                        "prop": "text",
+                        "format": "json",
+                        "formatversion": 2
+                    }
+                ) as resp:
+                    if resp.status != 200:
+                        return None
+                    data = await resp.json()
+                    html_content = data.get("parse", {}).get("text", "")
+
+            # Extract paragraphs from HTML
+            paragraphs = self._extract_paragraphs(html_content)
+            if not paragraphs:
+                return None
+
+            # Pick a random paragraph
+            paragraph = random.choice(paragraphs)
+
+            return {
+                "title": page_title,
+                "paragraph": paragraph,
+                "url": f"https://pt.wikipedia.org/wiki/{page_title.replace(' ', '_')}"
+            }
+        except Exception:
+            return None
+
+    @staticmethod
+    def _extract_paragraphs(html_content: str) -> List[str]:
+        """Extract readable paragraphs from Wikipedia HTML."""
+        import re
+        # Remove scripts, styles, tables, references, etc.
+        html_content = re.sub(r'<(script|style|table|sup|span class="mw-editsection")[^>]*>.*?</\1>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
+        html_content = re.sub(r'<!--.*?-->', '', html_content, flags=re.DOTALL)
+
+        # Extract <p> tags
+        p_tags = re.findall(r'<p>(.*?)</p>', html_content, re.DOTALL)
+
+        paragraphs = []
+        for p in p_tags:
+            # Clean up the paragraph
+            text = re.sub(r'<[^>]+>', '', p)  # Remove HTML tags
+            text = html.unescape(text)  # Decode HTML entities
+            text = re.sub(r'\s+', ' ', text).strip()  # Normalize whitespace
+            text = re.sub(r'\[\d+\]', '', text)  # Remove reference numbers like [1]
+
+            # Filter out short/empty paragraphs and non-content paragraphs
+            if len(text) > 100 and not text.startswith(('Coordinates:', 'This article', 'From Wikipedia')):
+                paragraphs.append(text)
+
+        return paragraphs
+
+    async def _process_wiki(self, ctx: commands.Context):
+        """Process wiki command for prefix commands."""
+        # Send typing indicator
+        async with ctx.typing():
+            result = await self._fetch_random_wiki()
+
+        if not result:
+            embed = DiceEmbedBuilder.build_error_embed(
+                "Failed to fetch a random Wikipedia article. Please try again.",
+                ctx.author
+            )
+            await ctx.send(embed=embed)
+            return
+
+        embed = discord.Embed(
+            title=f"📖 {result['title']}",
+            description=result['paragraph'][:1000] + ("..." if len(result['paragraph']) > 1000 else ""),
+            color=discord.Color.blue(),
+            timestamp=discord.utils.utcnow()
+        )
+        embed.add_field(
+            name="🔗 Read more",
+            value=f"[Wikipedia]({result['url']})",
+            inline=False
+        )
+        embed.set_footer(text="Random Wikipedia Article", icon_url="https://en.wikipedia.org/static/favicon/wikipedia.ico")
+        await ctx.send(embed=embed)
+
+    async def _process_wiki_slash(self, interaction: discord.Interaction):
+        """Process wiki command for slash commands."""
+        await interaction.response.defer()
+
+        result = await self._fetch_random_wiki()
+
+        if not result:
+            embed = DiceEmbedBuilder.build_error_embed(
+                "Failed to fetch a random Wikipedia article. Please try again.",
+                interaction.user
+            )
+            await interaction.followup.send(embed=embed, ephemeral=True)
+            return
+
+        embed = discord.Embed(
+            title=f"📖 {result['title']}",
+            description=result['paragraph'][:1000] + ("..." if len(result['paragraph']) > 1000 else ""),
+            color=discord.Color.blue(),
+            timestamp=discord.utils.utcnow()
+        )
+        embed.add_field(
+            name="🔗 Read more",
+            value=f"[Wikipedia]({result['url']})",
+            inline=False
+        )
+        embed.set_footer(text="Random Wikipedia Article", icon_url="https://en.wikipedia.org/static/favicon/wikipedia.ico")
+        await interaction.followup.send(embed=embed)
+
     @roll_command.error
     @rollstats_command.error
     @bakushin_command.error
     @pupue_command.error
+    @wiki_command.error
     async def roll_error(self, ctx: commands.Context, error: commands.CommandError):
         """Handle command errors."""
         if isinstance(error, commands.CommandOnCooldown):

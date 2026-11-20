@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-11-20
+
+### Fixed
+- **Wikipedia command (`!wiki` / `/wiki`)** — Fixed 403 Forbidden error by adding required User-Agent header to API requests
+
+### Changed
+- **Wikipedia command** — Now fetches from Portuguese Wikipedia (`pt.wikipedia.org`) instead of English
+
 ## [1.2.0] - 2026-11-19
 
 ### Added

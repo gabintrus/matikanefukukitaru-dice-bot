@@ -35,6 +35,7 @@ class CustomHelpCommand(commands.HelpCommand):
 
         categories = {
             "🎲 Dice Rolling": ["roll", "rollstats"],
+            "📖 Fun & Utility": ["wiki", "bakushin", "pupue"],
         }
 
         for cat_name, cmd_names in categories.items():
