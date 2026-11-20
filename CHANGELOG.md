@@ -7,11 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.1] - 2026-11-20
 
-### Fixed
-- **Wikipedia command (`!wiki` / `/wiki`)** — Fixed 403 Forbidden error by adding required User-Agent header to API requests
-
-### Changed
-- **Wikipedia command** — Now fetches from Portuguese Wikipedia (`pt.wikipedia.org`) instead of English
+### Added
+- **Wikipedia command (`!wiki` / `/wiki`)** — takes a random page from wikipedia
 
 ## [1.2.0] - 2026-11-19
 
@@ -66,5 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom help command with categorized embeds
 - Global error handler with user-friendly messages
 
+[1.2.1]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.2.1
+[1.2.0]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.2.0
 [1.1.0]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.1.0
 [1.0.0]: https://github.com/gabintrus/matikanefukukitaru-dice-bot/releases/tag/1.0.0
