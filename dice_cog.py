@@ -746,8 +746,7 @@ class DiceCog(commands.Cog):
     @commands.command(name="pupue")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def pupue_command(self, ctx: commands.Context):
-        """Pupue! Sends pupue once then a GIF."""
-        await ctx.send("pupue")
+        """Pupue! Sends a GIF."""
         await ctx.send("https://klipy.com/gifs/konata-lucky-star-pupue")
 
     @roll_command.error
@@ -810,8 +809,7 @@ class DiceCog(commands.Cog):
     @app_commands.command(name="pupue", description="pupue!! :D")
     async def pupue_slash(self, interaction: discord.Interaction):
         """Slash command version of pupue."""
-        await interaction.response.send_message("pupue")
-        await interaction.followup.send("https://klipy.com/gifs/konata-lucky-star-pupue")
+        await interaction.response.send_message("https://klipy.com/gifs/konata-lucky-star-pupue")
 
     async def _process_roll_slash(self, interaction: discord.Interaction, expression: str):
         """Process a dice roll for slash command and send the result."""

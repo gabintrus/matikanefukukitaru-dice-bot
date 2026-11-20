@@ -12,8 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `/roll <expression>` — Roll dice with full NdS notation support
   - `/rollstats <expression>` — Show probability statistics
   - `/bakushin` — Bakushin! Sends bakushin 6 times then a GIF
-  - `/pupue` — Pupue! Sends pupue once then a GIF
+  - `/pupue` — Pupue! Sends a GIF
 - Automatic global slash command sync on bot startup
+
+### Changed
+- `/pupue` now only sends the GIF (removed "pupue" text prefix)
+- `!pupue` now only sends the GIF (removed "pupue" text prefix)
 
 ## [1.1.0] - 2026-11-19
 

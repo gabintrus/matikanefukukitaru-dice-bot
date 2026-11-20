@@ -68,7 +68,7 @@ python bot.py
 | `/roll <expression>` | Roll dice with full notation support |
 | `/rollstats <expression>` | Show probability statistics |
 | `/bakushin` | Bakushin! Sends bakushin 6 times then a GIF |
-| `/pupue` | Pupue! Sends pupue once then a GIF |
+| `/pupue` | Pupue! Sends a GIF |
 
 ### Prefix Commands (Prefix: `!` by default)
 
@@ -77,7 +77,7 @@ python bot.py
 | `!roll <expression>` | `!r` | Roll dice with full notation support |
 | `!rollstats <expression>` | `!rstats`, `!stats` | Show probability statistics |
 | `!bakushin` | — | Bakushin! Sends bakushin 6 times then a GIF |
-| `!pupue` | — | Pupue! Sends pupue once then a GIF |
+| `!pupue` | — | Pupue! Sends a GIF |
 | `!help` | `!h`, `!commands` | Show help message |
 
 ### Auto-Roll in Chat
