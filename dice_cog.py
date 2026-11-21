@@ -770,7 +770,7 @@ class DiceCog(commands.Cog):
             headers = {
                 'User-Agent': 'Mozilla/5.0 (compatible; DiceBot/1.0; +https://github.com/gabintrus/matikanefukukitaru-dice-bot)'
             }
-            # Use Wikipedia API (put 'en' instead of 'pt' if you want english wikipedia)
+            # Use Wikipedia API (put 'en' instead of 'pt' if you want english wikipedia, change on line 823 too)
             api_url = "https://pt.wikipedia.org/w/api.php"
             async with aiohttp.ClientSession(headers=headers) as session:
                 # First, get a random page title
